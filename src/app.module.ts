@@ -1,4 +1,3 @@
-require('dotenv').config();
 import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +10,7 @@ import { CommonModule } from './common/common.module';
 import { RequestLoggingMiddleware } from './common/request-logging.middleware';
 import { User } from './user/user.entity';
 import { Qna } from './qna/qna.entity';
+import { RefreshToken } from './auth/refresh-token.entity';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { Qna } from './qna/qna.entity';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [User, Qna],
+      entities: [User, Qna, RefreshToken],
       synchronize: true, // 개발 환경에서만 사용 (프로덕션에서는 false)
       extra: {
         allowPublicKeyRetrieval: true,
